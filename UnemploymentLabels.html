@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<title>D3: Unemployment By Ward</title>
+<script type="text/javascript" src="d3/d3.js"></script>
+
+</head>
+<body>
+<script type ="text/javascript">
+
+d3.csv("Unemployment.csv", function(data) {
+   
+    console.log(data)
+
+    var UnemploymentArray = [] 
+    var WardArray = []               // Create and initialize two arrays to store values
+    data.forEach(function(d) {  // Loop through each object of keys/values in the dataSet from csv
+     
+
+     UnemploymentArray.push(+d.Unemployment); // Add each value to unemployement array
+     WardArray.push(+d.Ward);  // Add each value to ward array 
+    })
+
+    console.log(UnemploymentArray)   // Log unemployment array in console to verify values
+    console.log(WardArray)  // Log ward array in console to verify values 
+
+
+
+        var axis = d3.svg.axis()
+                  .scale(widthScale);
+
+
+
+
+        var chart = d3.select("body").append("svg")
+        .attr("width", 500)
+        .attr("height",500)
+        .append("g")
+        .attr("transform", "translate (20, 0)")
+        .call(axis);
+
+        chart.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("width", function (d) { return d.Unemployment * 60; })
+        .attr("height", 45)
+        .attr("y", function (d , i) { return i *50; })
+        .attr ("fill", "blue")
+
+ chart.selectAll("text")
+ .data(data)
+ .enter()
+ .append("text")
+ .attr("fill", "white")
+.attr("y", function (d , i) { return i * 50 + 24; })
+.text(function (d) {return d.Ward; })
+
+
+})
+
+       
+
+
+
+
+
+
+
+
+</script>
+</body>
+
+</html>
