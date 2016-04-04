@@ -73,7 +73,7 @@ var svg = d3.select("body")
 
         data = data.filter (function(row) 
         {
-            return row['Month1'] == '1/1/16';
+            return row['Month'] == '1/1/16';
         
         })
         
@@ -88,7 +88,7 @@ var svg = d3.select("body")
      UnemploymentArray.push(+d.UnemploymentD3); // Add each value to unemployement array
      WardArray.push(+d.Ward);  // Add each value to ward array 
 
-     MonthArray.push(d.Month1);
+     MonthArray.push(d.Month);
     })
 
  
