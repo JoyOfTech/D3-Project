@@ -69,7 +69,8 @@
       var innerHeight = outerHeight - margin.top  - margin.bottom;
 
 
-      var svg = d3.select("body").append("svg")
+      var svg = d3.select("body")
+        .append("svg")
         .attr("width",  outerWidth)
         .attr("height", outerHeight)
         .attr("viewBox", "0 0 " + outerWidth + " " + outerHeight); 
@@ -168,9 +169,9 @@
 
 svg.append("text")
     .attr("text-anchor", "left")
-    .style("font-size", "10x")
+    .style("font-size", "13px")
     .style("color", "#333333")
-    .attr("transform", "translate("+ (outerWidth/28) + "," +(outerHeight/12) + ")")
+    .attr("transform", "translate("+ (outerWidth/50) + "," +(outerHeight/12) + ")")
     .text("2014")
     .style("font-family", "Arial")
 
