@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Total DC Population</title>
+    <title>Population Growth</title>
 
     <style type="text/css">
   .axis text{
@@ -75,6 +75,7 @@ var svg = d3.select("body")
 var parseDate = d3.time.format("%m/%d/%Y").parse;
 var formatPopulation = d3.format(",");
 var formatTime = d3.time.format("%Y");
+
 // Set the ranges
 var x = d3.time.scale()
         .range([0, width - margin.right - margin.left], .1)
@@ -90,20 +91,20 @@ var xAxis = d3.svg.axis()
 var yAxis = d3.svg.axis()
             .scale(y)
             .orient("left")
-            .tickFormat(function(d) {return d + "K"});
+            .tickFormat(function(d) {return d + "%"});
             
 // Define the line
      var valueline = d3.svg.line()
      
     .x(function(d) { return x(d.Date); })
-    .y(function(d) { return y(d["Population"]); });
+    .y(function(d) { return y(d["Population"])- (d["Population"]), -1/ (d["Population"]), -1; });
     
     
 // Get the data
-d3.csv("DC-population.csv", function(error, data) {
+d3.csv("Population-Growth.csv", function(error, data) {
     data.forEach(function(d) {
         d.Date = parseDate(d.Date);
-        d["Population"] = formatPopulation(+d["Population"]/1000);
+        d["Population"] = (d["Population"])- (d["Population"]) -1/ (d["Population"]) -1;
     });
  // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.Date; }));
@@ -114,15 +115,15 @@ svg.selectAll("dot")
     .enter()
     .append("circle")                               
         .attr("r", 5)       
-        .attr("cx", function(d) { return (x(d.Date)); })       
-        .attr("cy", function(d) { return y(d["Population"]); })
+        // .attr("cx", function(d) { return (x(d.Date)); })       
+        // .attr("cy", function(d) { return y(d["Population"]); })
         .style("fill", "white")
          .attr("transform", "translate(" + margin.left + "," + margin.top + ")")     
         .on("mouseover", function(d) {      
             div.transition()        
                 .duration(200)      
                 .style("opacity", .9);      
-            div .html(formatTime(d.Date) + "<br/>" + d3.format(",")(d["Population"] * 1000))  
+            div .html(formatTime(d.Date) + "<br/>" + d3.format(".3"))  
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");    
             })                  
@@ -176,14 +177,14 @@ svg.selectAll("dot")
     .style("font-size", "16px")
     .style("color", "#333333")
     .attr("transform", "translate("+ (width/3) + "," +(height/30) + ")")
-    .text("Total DC Population")
+    .text("Population Growth")
     .style("font-family", "Arial");
     svg.append("text")
     .attr("text-anchor", "left")
     .style("font-size", "13px")
     .style("color", "#333333")
     .attr("transform", "translate("+ (width/5.3) + "," +(height/12) + ")")
-    .text("1966 to 2015")
+    .text("1920 to 2015")
     .style("font-family", "Arial")
     
   
@@ -206,10 +207,10 @@ svg.selectAll("dot")
         }
     })
      .text(function(d,i){
-        return d3.format(",")(d["Population"] * 1000);
+        return d["Population"];
      })
      // move end lables 
-     .attr("transform", "translate(" + 60 + "," + 45 + ")") 
+     .attr("transform", "translate(" + 65 + "," + 35 + ")") 
 });
 </script>
 </body>
